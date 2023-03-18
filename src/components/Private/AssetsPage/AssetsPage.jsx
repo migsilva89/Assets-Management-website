@@ -1,9 +1,11 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import AssetsComponent from '../../Assets/AssetsComponent'
+import { AuthContext } from '@/contexts/AuthContext'
 
 const AssetsPage = ({ assets, user, userConst, navigation, userNavigation, classNames }) => {
+  const { signOut, setUser } = useContext(AuthContext)
   return (
     <div className='min-h-full'>
       <Disclosure as='nav' className='bg-gray-800'>
@@ -70,15 +72,28 @@ const AssetsPage = ({ assets, user, userConst, navigation, userNavigation, class
                           {userNavigation.map((item) => (
                             <Menu.Item key={item.name}>
                               {({ active }) => (
-                                <a
-                                  href={item.href}
-                                  className={classNames(
-                                    active ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-sm text-gray-700'
-                                  )}
-                                >
-                                  {item.name}
-                                </a>
+                                item.name === 'Sign out' ? (
+                                  <a
+                                    href={item.href}
+                                    onClick={() => signOut()}
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                  >
+                                    {item.name}
+                                  </a>
+                                ) : (
+                                  <a
+                                    href={item.href}
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                  >
+                                    {item.name}
+                                  </a>
+                                )
                               )}
                             </Menu.Item>
                           ))}
