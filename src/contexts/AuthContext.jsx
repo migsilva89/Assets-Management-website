@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
-import { parseCookies, setCookie } from 'nookies'
+import { destroyCookie, parseCookies, setCookie } from 'nookies'
 import Router from 'next/router'
 import { api } from '@/services/api'
 
@@ -37,7 +37,7 @@ export function AuthProvider({ children }){
       if (response.ok) {
         const data = await response.json()
         const { user, token } = data
-        console.log(user)
+        // console.log(user)
         // console.log(token)
         
         // save data in local storage or cookies
@@ -60,8 +60,15 @@ export function AuthProvider({ children }){
     }
   }
   
+  function signOut(){
+    destroyCookie(undefined, 'devassets-token')
+    delete api.defaults.headers['Authorization']
+    setUser(null)
+    Router.push('/')
+  }
+  
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )
