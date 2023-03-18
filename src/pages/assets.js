@@ -6,6 +6,7 @@ import { api } from '@/services/api'
 import { parseCookies } from 'nookies'
 import AssetsComponent from '@/components/Assets/AssetsComponent'
 import AssetsPage from '@/components/Private/AssetsPage/AssetsPage'
+import { redirectIfNotAuthenticated } from '@/utils/auth'
 
 const userConst = {
   name: 'Tom Cook',
@@ -21,7 +22,7 @@ const navigation = [
   { name: 'Reports', href: '#', current: false }
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
+  { name: 'Your Profile', href: '/userProfile' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' }
 ]
@@ -49,21 +50,12 @@ const Assets = () => {
   )
 }
 
+//verificar se o temos token valido nos cookies, se nao redireciona para login.
+//mudamos isto opara uma util
+export async function getServerSideProps(ctx){
+  return await redirectIfNotAuthenticated(ctx)
+}
+
 export default Assets
 
-//verificar se o temos token valido nos cookies, se nao redireciona para login.
-export const getServerSideProps = async (ctx) => {
-  const { ['devassets-token']: token } = parseCookies(ctx)
-  
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false
-      }
-    }
-  }
-  return {
-    props: {}
-  }
-}
+
