@@ -1,6 +1,6 @@
 import React from 'react'
 import Loading from '@/components/Layout/Loading'
-import AssetCard from '@/components/Assets/AssetCard'
+import AssetCard from '@/components/Assets/AssetCard/AssetCard'
 
 const AssetsList = ({ assets }) => {
   const { data } = assets

@@ -1,7 +1,7 @@
 import React from 'react'
-import AddComment from '@/components/Assets/AddComment'
-import UserCard from '@/components/Assets/UserCard'
-import Asset from '@/components/Assets/Asset'
+import AddComment from '@/components/Assets/AssetCard/AddComment'
+import UserCard from '@/components/Assets/AssetCard/UserCard'
+import Asset from '@/components/Assets/AssetCard/Asset'
 
 const AssetCard = ({ asset }) => {
   return (
