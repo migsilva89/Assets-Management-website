@@ -3,9 +3,9 @@ import Likes from '@/components/Assets/Likes'
 import { AuthContext } from '@/contexts/AuthContext'
 import { api } from '@/services/api'
 
-const Asset = ({ asset }) => {
+const Asset = ({ asset, userId }) => {
   const { name, description, image, owner, tags, likes, isPublic, comments, createdAt, slug, _id } = asset
-  const { user } = useContext(AuthContext)
+  
   
   const handleDeleteComment = (commentId) => {
     console.log(commentId)
@@ -30,18 +30,18 @@ const Asset = ({ asset }) => {
           <Likes likes={likes} id={_id}/>
           <div className='text-white'>
             <h1>Comments:</h1>
-            {user._id ?
-              <div>{comments.map((comment, index) => (
-                <div key={index} className='pl-2 flex items-center gap-5 border justify-between'>
-                  <p>{comment.text}</p>
-                  {comment.author === user._id ?
-                    <button onClick={() => {
-                      handleDeleteComment(comment._id)
-                    }} className='border p-2 bg-red-500'>Delete</button> :
-                    <div className='border py-4 px-8 bg-blue-500'></div>}
-                </div>
-              ))}</div> : <div>Loading...</div>
-            }
+            
+            <div>{comments.map((comment, index) => (
+              <div key={index} className='pl-2 flex items-center gap-5 border justify-between'>
+                <p>{comment.text}</p>
+                {comment.author === userId ?
+                  <button onClick={() => {
+                    handleDeleteComment(comment._id)
+                  }} className='border p-2 bg-red-500'>Delete</button> :
+                  <div className='border py-4 px-8 bg-blue-500'></div>}
+              </div>
+            ))}</div>
+          
           </div>
         </div>
       </div>
