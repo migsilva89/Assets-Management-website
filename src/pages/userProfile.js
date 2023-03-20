@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import UserProfilePage from '@/components/Private/UserProfilePage/UserProfilePage'
+import UserProfilePage from '@/components/UserProfilePage/UserProfilePage'
 import { redirectIfNotAuthenticated } from '@/utils/auth'
 import { AuthContext } from '@/contexts/AuthContext'
 
