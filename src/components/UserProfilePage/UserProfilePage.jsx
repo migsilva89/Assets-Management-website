@@ -1,10 +1,11 @@
 import React from 'react'
+import MainLayout from '@/components/Layout/MainLayout'
 
 const UserProfilePage = ({ userInfo }) => {
   const { avatar, createdAt, email, name, nickName, _id } = userInfo ? userInfo : {}
   
   return (
-    <div>
+    <MainLayout>
       {userInfo ? <div>
         {avatar}
         <br/>
@@ -19,7 +20,7 @@ const UserProfilePage = ({ userInfo }) => {
         {_id}
       </div> : <div>Loading...</div>}
     
-    </div>
+    </MainLayout>
   )
 }
 

@@ -11,7 +11,7 @@ const AssetsList = ({ assets }) => {
         <Loading/>
       ) : (
         data.map((asset, index) => (
-          <AssetCard key={index}/>
+          <AssetCard key={index} asset={asset}/>
           /** <div key={index} className='border-2 p-10'>
            <h1>NAME: {asset.name}</h1>
            <h1>DESCRIPTION: {asset.description}</h1>

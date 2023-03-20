@@ -70,7 +70,7 @@ const NavBar = () => {
                     <span className='sr-only'>View notifications</span>
                     <BellIcon className='h-6 w-6' aria-hidden='true'/>
                   </button>
-                
+                  
                   {/* Profile dropdown */}
                   <Menu as='div' className='relative ml-3'>
                     <div>
@@ -93,8 +93,7 @@ const NavBar = () => {
                           <Menu.Item key={item.name}>
                             {({ active }) => (
                               item.name === 'Sign out' ? (
-                                <a
-                                  href={item.href}
+                                <div
                                   onClick={() => signOut()}
                                   className={classNames(
                                     active ? 'bg-gray-100' : '',
@@ -102,7 +101,7 @@ const NavBar = () => {
                                   )}
                                 >
                                   {item.name}
-                                </a>
+                                </div>
                               ) : (
                                 <a
                                   href={item.href}
@@ -135,7 +134,7 @@ const NavBar = () => {
               </div>
             </div>
           </div>
-        
+          
           <Disclosure.Panel className='md:hidden'>
             <div className='space-y-1 px-2 pt-2 pb-3 sm:px-3'>
               {navigation.map((item) => (
