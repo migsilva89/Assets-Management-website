@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Loading from '@/components/Layout/Loading'
-import AssetCard from '@/components/Assets/AssetCard/AssetCard'
+import AssetCard from '@/components/AssetsPage/AssetCard/AssetCard'
 import { AuthContext } from '@/contexts/AuthContext'
 
 const AssetsList = ({ assets }) => {

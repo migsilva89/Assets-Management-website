@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '@/contexts/AuthContext'
 import { api } from '@/services/api'
-import AssetsPage from '@/components/Assets/AssetsPage'
+import AssetsPage from '@/components/AssetsPage/AssetsPage'
 import { redirectIfNotAuthenticated } from '@/utils/auth'
 
 const Assets = () => {

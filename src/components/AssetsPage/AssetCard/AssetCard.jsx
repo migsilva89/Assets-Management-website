@@ -1,14 +1,14 @@
 import React from 'react'
-import AddComment from '@/components/Assets/AssetCard/AddComment'
-import UserCard from '@/components/Assets/AssetCard/UserCard'
-import Asset from '@/components/Assets/AssetCard/Asset'
+import AddComment from '@/components/AssetsPage/AssetCard/AddComment'
+import UserCard from '@/components/AssetsPage/AssetCard/UserCard'
+import Asset from '@/components/AssetsPage/AssetCard/Asset'
 
 const AssetCard = ({ asset, userId }) => {
   return (
     <div>
       <div className='flex'>
         <Asset asset={asset} userId={userId}/>
-        <UserCard name={asset.name}/>
+        <UserCard/>
       </div>
       <AddComment id={asset._id}/>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import AssetsList from './AssetsList'
 import NavBar from '@/components/Layout/NavBar'
-import AddAsset from '@/components/Assets/AddAsset'
+import AddAsset from '@/components/AssetsPage/AddAsset'
 import MainLayout from '@/components/Layout/MainLayout'
 
 const AssetsPage = ({ assets, user }) => {
