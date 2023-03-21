@@ -3,10 +3,12 @@ import AssetsList from './AssetsList'
 import NavBar from '@/components/Layout/NavBar'
 import AddAsset from '@/components/AssetsPage/AssetCard/AddAsset'
 import MainLayout from '@/components/Layout/MainLayout'
+import Chat from '@/components/Chat/Chat'
 
 const AssetsPage = ({ assets, user, setUpdateData, updateData }) => {
   return (
     <MainLayout>
+      <Chat/>
       <div className='min-h-full'>
         <header className='bg-white shadow'>
           <div className='mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8'>

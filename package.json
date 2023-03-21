@@ -20,7 +20,8 @@
     "nookies": "^2.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.43.6"
+    "react-hook-form": "^7.43.6",
+    "socket.io-client": "^4.6.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
