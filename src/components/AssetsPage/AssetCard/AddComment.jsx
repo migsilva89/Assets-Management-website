@@ -13,7 +13,7 @@ const AddComment = ({ id }) => {
   }
   
   return (
-    <form>
+    <div>
       <div className='w-full mb-4 border border-gray-200 rounded-b-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600'>
         <div className='px-4 py-2 bg-white dark:bg-gray-800'>
           <label htmlFor='comment' className='sr-only'>Your comment</label>
@@ -33,7 +33,7 @@ const AddComment = ({ id }) => {
           </p>
         </div>
       </div>
-    </form>
+    </div>
   )
 }
 

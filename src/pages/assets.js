@@ -10,11 +10,12 @@ const Assets = () => {
   
   useEffect(() => {
     api.get('/assets').then(data => {
+      console.log(data)
       setAssets(data)
     }).catch(error => {
       alert('NO DATA')
     })
-  }, [])
+  }, [assets])
   
   return (
     <>

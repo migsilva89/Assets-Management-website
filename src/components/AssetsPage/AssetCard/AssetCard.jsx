@@ -8,7 +8,7 @@ const AssetCard = ({ asset, userId }) => {
     <div>
       <div className='flex'>
         <Asset asset={asset} userId={userId}/>
-        <UserCard/>
+        <UserCard name={asset.name}/>
       </div>
       <AddComment id={asset._id}/>
     </div>
