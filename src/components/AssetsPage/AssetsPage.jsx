@@ -4,7 +4,7 @@ import NavBar from '@/components/Layout/NavBar'
 import AddAsset from '@/components/AssetsPage/AssetCard/AddAsset'
 import MainLayout from '@/components/Layout/MainLayout'
 
-const AssetsPage = ({ assets, user }) => {
+const AssetsPage = ({ assets, user, setUpdateData, updateData }) => {
   return (
     <MainLayout>
       <div className='min-h-full'>
@@ -18,7 +18,7 @@ const AssetsPage = ({ assets, user }) => {
             <AddAsset/>
           </div>
           <div className='mx-auto max-w-7xl py-6 sm:px-6 lg:px-8'>
-            <AssetsList assets={assets}/>
+            <AssetsList assets={assets} setUpdateData={setUpdateData} updateData={updateData}/>
           </div>
         </main>
       </div>

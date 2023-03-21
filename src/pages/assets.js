@@ -7,6 +7,7 @@ import { redirectIfNotAuthenticated } from '@/utils/auth'
 const Assets = () => {
   const [assets, setAssets] = useState([])
   const { user } = useContext(AuthContext)
+  const [updateData, setUpdateData] = useState(false)
   
   useEffect(() => {
     api.get('/assets').then(data => {
@@ -15,11 +16,11 @@ const Assets = () => {
     }).catch(error => {
       alert('NO DATA')
     })
-  }, [assets])
+  }, [updateData])
   
   return (
     <>
-      <AssetsPage assets={assets} user={user}/>
+      <AssetsPage assets={assets} user={user} setUpdateData={setUpdateData} updateData={updateData}/>
     </>
   )
 }

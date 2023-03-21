@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { api } from '@/services/api'
 
-const AddComment = ({ id }) => {
+const AddComment = ({ id, setUpdateData, updateData }) => {
   const [comment, setComment] = useState('')
   const handleSubmit = () => {
     console.log(id)
@@ -9,6 +9,7 @@ const AddComment = ({ id }) => {
       text: comment
     }).then(function(response){
       console.log(response)
+      setUpdateData(!updateData)
     })
   }
   

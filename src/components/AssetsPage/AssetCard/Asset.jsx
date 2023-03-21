@@ -3,13 +3,14 @@ import Likes from '@/components/AssetsPage/AssetCard/Likes'
 import { AuthContext } from '@/contexts/AuthContext'
 import { api } from '@/services/api'
 
-const Asset = ({ asset, userId }) => {
+const Asset = ({ asset, userId, setUpdateData, updateData }) => {
   const { name, description, image, owner, tags, likes, isPublic, comments, createdAt, slug, _id } = asset
   
   const handleDeleteComment = (commentId, event) => {
     console.log(commentId)
     api.delete(`/assets/${_id}/comments/${commentId}`).then(function(response){
       console.log(response)
+      setUpdateData(!updateData)
     })
   }
   
@@ -25,7 +26,7 @@ const Asset = ({ asset, userId }) => {
         </p>
         {/*<button type='button' className='text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900'>Purple</button>*/}
         <div>
-          <Likes likes={likes} id={_id}/>
+          <Likes likes={likes} id={_id} setUpdateData={setUpdateData} updateData={updateData}/>
           <div className='text-white'>
             <h1>Comments:</h1>
             <div>{comments.map((comment, index) => (

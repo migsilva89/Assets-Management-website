@@ -3,7 +3,7 @@ import Loading from '@/components/Layout/Loading'
 import AssetCard from '@/components/AssetsPage/AssetCard/AssetCard'
 import { AuthContext } from '@/contexts/AuthContext'
 
-const AssetsList = ({ assets }) => {
+const AssetsList = ({ assets, setUpdateData, updateData }) => {
   const { data } = assets
   const { user } = useContext(AuthContext)
   const userId = user ? user._id : ''
@@ -13,7 +13,7 @@ const AssetsList = ({ assets }) => {
         <Loading/>
       ) : (
         data.map((asset, index) => (
-          <AssetCard key={index} asset={asset} userId={userId}/>
+          <AssetCard setUpdateData={setUpdateData} updateData={updateData} key={index} asset={asset} userId={userId}/>
         ))
       )}
     </div>

@@ -2,16 +2,18 @@ import React, { useContext } from 'react'
 import { api } from '@/services/api'
 import { AuthContext } from '@/contexts/AuthContext'
 
-const Likes = ({ likes, id }) => {
+const Likes = ({ likes, id, setUpdateData, updateData }) => {
   const { user } = useContext(AuthContext)
   const handleLike = () => {
     if (likes.includes(user._id)) {
       api.delete(`/assets/${id}/likes`).then(function(response){
         console.log(response)
+        setUpdateData(!updateData)
       })
     } else {
       api.post(`/assets/${id}/likes`).then(function(response){
         console.log(response)
+        setUpdateData(!updateData)
       })
     }
   }
