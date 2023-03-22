@@ -34,6 +34,23 @@ export function AuthProvider({ children }){
     }
   }
   
+  async function registerUser(name, nickName, email, password){
+    try {
+      const { data } = await api.post('/auth/register', { name, nickName, email, password })
+      const { user, token } = data
+      
+      setCookie(undefined, 'devassets-token', token, {
+        maxAge: 60 * 60 // 1 hour
+      })
+      
+      api.defaults.headers['Authorization'] = `Bearer ${token}`
+      setUser(user)
+      await Router.push('/assets')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  
   function signOut(){
     destroyCookie(undefined, 'devassets-token')
     delete api.defaults.headers['Authorization']
@@ -42,7 +59,7 @@ export function AuthProvider({ children }){
   }
   
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut, registerUser }}>
       {children}
     </AuthContext.Provider>
   )

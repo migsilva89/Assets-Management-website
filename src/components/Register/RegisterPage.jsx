@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
+import { useForm } from 'react-hook-form'
+import { AuthContext } from '@/contexts/AuthContext'
 
 const RegisterPage = () => {
+  const { register, handleSubmit } = useForm()
+  const { registerUser } = useContext(AuthContext)
+  
+  async function handleRegister(data){
+    const { name, nickName, email, password } = data
+    try {
+      //console.log(data)
+      await registerUser(name, nickName, email, password)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
   return (
     <div className='w-full max-w-md space-y-8 mx-auto'>
       <div>
@@ -14,7 +29,7 @@ const RegisterPage = () => {
           Register an account
         </h2>
       </div>
-      <form className='mt-8 space-y-6' action='#' method='POST'>
+      <form onSubmit={handleSubmit(handleRegister)} className='mt-8 space-y-6' action='#' method='POST'>
         <input type='hidden' name='remember' defaultValue='true'/>
         <div className='-space-y-px rounded-t-md shadow-sm'>
           <div>
@@ -22,6 +37,7 @@ const RegisterPage = () => {
               Full Name
             </label>
             <input
+              {...register('name')}
               id='name'
               name='name'
               type='name'
@@ -36,6 +52,7 @@ const RegisterPage = () => {
               Nick Name
             </label>
             <input
+              {...register('nickName')}
               id='nickName'
               name='nickName'
               type='nickName'
@@ -50,6 +67,7 @@ const RegisterPage = () => {
               Email address
             </label>
             <input
+              {...register('email')}
               id='email-address'
               name='email'
               type='email'
@@ -64,6 +82,7 @@ const RegisterPage = () => {
               Password
             </label>
             <input
+              {...register('password')}
               id='password'
               name='password'
               type='password'

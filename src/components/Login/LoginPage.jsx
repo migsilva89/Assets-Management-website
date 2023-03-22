@@ -30,9 +30,9 @@ export default function LoginPage(){
         </h2>
         <p className='mt-2 text-center text-sm text-gray-600'>
           Dont have an account yet?{' '}
-          <a href='/src/pages/register' className='font-medium text-indigo-600 hover:text-indigo-500'>
+          <Link href='/register' className='font-medium text-indigo-600 hover:text-indigo-500'>
             Register
-          </a>
+          </Link>
         </p>
       </div>
       <form className='mt-8 space-y-6' onSubmit={handleSubmit(handleSignIn)}>
