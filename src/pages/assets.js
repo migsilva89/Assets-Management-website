@@ -3,6 +3,8 @@ import { AuthContext } from '@/contexts/AuthContext'
 import { api } from '@/services/api'
 import AssetsPage from '@/components/AssetsPage/AssetsPage'
 import { redirectIfNotAuthenticated } from '@/utils/auth'
+import MainLayout from '@/components/Layout/MainLayout'
+import FeedPage from '@/components/FeedPage/FeedPage'
 
 const Assets = () => {
   const [assets, setAssets] = useState([])
@@ -19,9 +21,9 @@ const Assets = () => {
   }, [updateData])
   
   return (
-    <>
-      <AssetsPage assets={assets} user={user} setUpdateData={setUpdateData} updateData={updateData}/>
-    </>
+    <MainLayout>
+      <FeedPage/>
+    </MainLayout>
   )
 }
 

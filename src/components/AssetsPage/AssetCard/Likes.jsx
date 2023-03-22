@@ -18,6 +18,10 @@ const Likes = ({ likes, id, setUpdateData, updateData }) => {
     }
   }
   
+  if (!user) {
+    return <div>Loading...</div>
+  }
+  
   const isLiked = likes.includes(user._id)
   const iconColor = isLiked ? 'blue' : 'white'
   

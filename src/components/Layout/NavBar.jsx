@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from 'react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { AuthContext } from '@/contexts/AuthContext'
+import Link from 'next/link'
 
 function classNames(...classes){
   return classes.filter(Boolean).join(' ')
@@ -14,19 +15,23 @@ const userConst = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
 }
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '/', current: false },
+  { name: 'Feed', href: '/assets', current: true },
+  { name: 'My Assets', href: '/myassets', current: false },
   { name: 'Projects', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false },
   { name: 'Reports', href: '#', current: false }
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '/userProfile' },
-  { name: 'Settings', href: '#' },
+  // { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' }
 ]
+
+
 const NavBar = () => {
-  const { signOut, setUser } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
+  const { signOut } = useContext(AuthContext)
+  console.log(user)
   return (
     <Disclosure as='nav' className='bg-gray-800'>
       {({ open }) => (
@@ -44,7 +49,7 @@ const NavBar = () => {
                 <div className='hidden md:block'>
                   <div className='ml-10 flex items-baseline space-x-4'>
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -56,7 +61,7 @@ const NavBar = () => {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -76,7 +81,9 @@ const NavBar = () => {
                     <div>
                       <Menu.Button className='flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
                         <span className='sr-only'>Open user menu</span>
-                        <img className='h-8 w-8 rounded-full' src={userConst.imageUrl} alt=''/>
+                        {user ?
+                          <img className='h-8 w-8 rounded-full' src={user.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `http://localhost:5000/images/usersAvatar/${user.avatar}`} alt={`${user.nickName}'s avatar`}/> :
+                          <img className='h-8 w-8 rounded-full' src='https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg'/>}
                       </Menu.Button>
                     </div>
                     <Transition
@@ -103,7 +110,7 @@ const NavBar = () => {
                                   {item.name}
                                 </div>
                               ) : (
-                                <a
+                                <Link
                                   href={item.href}
                                   className={classNames(
                                     active ? 'bg-gray-100' : '',
@@ -111,7 +118,7 @@ const NavBar = () => {
                                   )}
                                 >
                                   {item.name}
-                                </a>
+                                </Link>
                               )
                             )}
                           </Menu.Item>
