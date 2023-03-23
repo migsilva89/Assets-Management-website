@@ -41,7 +41,6 @@ const NavBar = () => {
   const { user } = useContext(AuthContext)
   const { signOut } = useContext(AuthContext)
   
-  console.log(user)
   return (
     <Disclosure as='nav' className='bg-gray-800'>
       {({ open }) => (

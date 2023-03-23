@@ -5,6 +5,7 @@ import MainLayout from '@/components/Layout/MainLayout'
 import Chat from '@/components/Chat/Chat'
 
 const AssetsPage = ({ assets, user, setUpdateData, updateData }) => {
+  
   return (
     <MainLayout>
       <Chat/>

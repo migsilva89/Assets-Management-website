@@ -52,10 +52,10 @@ export function AuthProvider({ children }){
   }
   
   function signOut(){
+    Router.push('/')
     destroyCookie(undefined, 'devassets-token')
     delete api.defaults.headers['Authorization']
     setUser(null)
-    Router.push('/')
   }
   
   return (

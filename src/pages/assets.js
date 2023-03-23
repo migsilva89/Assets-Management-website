@@ -7,23 +7,12 @@ import MainLayout from '@/components/Layout/MainLayout'
 import FeedPage from '@/components/FeedPage/FeedPage'
 
 const Assets = () => {
-  const [assets, setAssets] = useState([])
-  const { user } = useContext(AuthContext)
-  const [updateData, setUpdateData] = useState(false)
   
-  useEffect(() => {
-    api.get('/assets').then(data => {
-      console.log(data)
-      setAssets(data)
-    }).catch(error => {
-      alert('NO DATA')
-    })
-  }, [updateData])
   
   return (
     <MainLayout>
       <FeedPage/>
-    
+      {/*<AssetsPage assets={assets} user={user} setUpdateData={setUpdateData} updateData={updateData}/>*/}
     </MainLayout>
   )
 }
