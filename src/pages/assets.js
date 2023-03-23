@@ -8,7 +8,6 @@ import FeedPage from '@/components/FeedPage/FeedPage'
 
 const Assets = () => {
   
-  
   return (
     <MainLayout>
       <FeedPage/>

@@ -13,7 +13,7 @@ export function AuthProvider({ children }){
     const { 'devassets-token': token } = parseCookies()
     
     if (token) {
-      api.get('/user').then(({ data }) => setUser(data)).catch((error) => console.error(error))
+      api.get('/auth/user').then(({ data }) => setUser(data)).catch((error) => console.error(error))
     }
   }, [])
   

@@ -38,7 +38,7 @@ const AddComment = () => {
   return (
     <div className='flex items-start space-x-4 mt-10 max-w-2xl lg:max-w-7xl mx-auto'>
       <div className='min-w-0 flex-1'>
-        <form action='#'>
+        <form action='src/components/FeedPage/Assets#'>
           <div className='border-b border-gray-200 focus-within:border-indigo-600'>
             <label htmlFor='comment' className='sr-only'>
               Add your comment

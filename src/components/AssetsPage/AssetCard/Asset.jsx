@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Likes from '@/components/AssetsPage/AssetCard/Likes'
+import Likes from '@/components/FeedPage/AssetsCard/Likes'
 import { AuthContext } from '@/contexts/AuthContext'
 import { api } from '@/services/api'
 
