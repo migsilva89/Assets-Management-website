@@ -1,7 +1,7 @@
 import React from 'react'
 import MainLayout from '@/components/Layout/MainLayout'
 
-const MyAssets = () => {
+const Activity = () => {
   return (
     <MainLayout>
       Oi
@@ -9,4 +9,4 @@ const MyAssets = () => {
   )
 }
 
-export default MyAssets
+export default Activity

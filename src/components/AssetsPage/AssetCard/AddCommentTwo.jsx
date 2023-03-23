@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { api } from '@/services/api'
 
-const AddComment = ({ id, setUpdateData, updateData }) => {
+const AddCommentTwo = ({ id, setUpdateData, updateData }) => {
   const [comment, setComment] = useState('')
   const handleSubmit = () => {
     console.log(id)
@@ -38,4 +38,4 @@ const AddComment = ({ id, setUpdateData, updateData }) => {
   )
 }
 
-export default AddComment
+export default AddCommentTwo

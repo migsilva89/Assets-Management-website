@@ -1,11 +1,14 @@
 import React from 'react'
+import AssetsList from '@/components/FeedPage/Assets/AssetsList'
 
-const AssetsList = () => {
+
+const FeedPage = () => {
   return (
-    <div>
-      Feed Page
-    </div>
+    <main>
+      <AssetsList/>
+    </main>
   )
 }
 
-export default AssetsList
+
+export default FeedPage

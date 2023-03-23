@@ -3,6 +3,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { AuthContext } from '@/contexts/AuthContext'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 function classNames(...classes){
   return classes.filter(Boolean).join(' ')
@@ -16,10 +17,10 @@ const userConst = {
 }
 const navigation = [
   { name: 'Feed', href: '/assets', current: true },
-  { name: 'My Assets', href: '/myassets', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false }
+  { name: 'My Activity', href: '/activity', current: false },
+  { name: 'Tags', href: '/tags', current: false },
+  { name: 'Rules', href: '/rules', current: false }
+  // { name: 'Reports', href: '#', current: false }
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '/userProfile' },
@@ -27,10 +28,19 @@ const userNavigation = [
   { name: 'Sign out', href: '#' }
 ]
 
+const useIsActive = (href) => {
+  const { pathname } = useRouter()
+  return pathname === href
+}
 
 const NavBar = () => {
+  const useIsActive = (href) => {
+    const { pathname } = useRouter()
+    return pathname === href
+  }
   const { user } = useContext(AuthContext)
   const { signOut } = useContext(AuthContext)
+  
   console.log(user)
   return (
     <Disclosure as='nav' className='bg-gray-800'>
@@ -40,11 +50,13 @@ const NavBar = () => {
             <div className='flex h-16 items-center justify-between'>
               <div className='flex items-center'>
                 <div className='flex-shrink-0'>
-                  <img
-                    className='h-8 w-8'
-                    src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500'
-                    alt='Your Company'
-                  />
+                  <Link href='/'>
+                    <img
+                      className='h-8 w-8'
+                      src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500'
+                      alt='Your Company'
+                    />
+                  </Link>
                 </div>
                 <div className='hidden md:block'>
                   <div className='ml-10 flex items-baseline space-x-4'>
@@ -53,12 +65,12 @@ const NavBar = () => {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current
+                          useIsActive(item.href)
                             ? 'bg-gray-900 text-white'
                             : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={useIsActive(item.href) ? 'page' : undefined}
                       >
                         {item.name}
                       </Link>
@@ -68,13 +80,13 @@ const NavBar = () => {
               </div>
               <div className='hidden md:block'>
                 <div className='ml-4 flex items-center md:ml-6'>
-                  <button
-                    type='button'
-                    className='rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
-                  >
-                    <span className='sr-only'>View notifications</span>
-                    <BellIcon className='h-6 w-6' aria-hidden='true'/>
-                  </button>
+                  {/*<button*/}
+                  {/*  type='button'*/}
+                  {/*  className='rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'*/}
+                  {/*>*/}
+                  {/*  <span className='sr-only'>View notifications</span>*/}
+                  {/*  <BellIcon className='h-6 w-6' aria-hidden='true'/>*/}
+                  {/*</button>*/}
                   
                   {/* Profile dropdown */}
                   <Menu as='div' className='relative ml-3'>
@@ -160,22 +172,26 @@ const NavBar = () => {
               ))}
             </div>
             <div className='border-t border-gray-700 pt-4 pb-3'>
-              <div className='flex items-center px-5'>
-                <div className='flex-shrink-0'>
-                  <img className='h-10 w-10 rounded-full' src={userConst.imageUrl} alt=''/>
-                </div>
-                <div className='ml-3'>
-                  <div className='text-base font-medium leading-none text-white'>{userConst.name}</div>
-                  <div className='text-sm font-medium leading-none text-gray-400'>{userConst.email}</div>
-                </div>
-                <button
-                  type='button'
-                  className='ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
-                >
-                  <span className='sr-only'>View notifications</span>
-                  <BellIcon className='h-6 w-6' aria-hidden='true'/>
-                </button>
-              </div>
+              {user ?
+                <div className='flex items-center px-5'>
+                  
+                  <div className='flex-shrink-0'>
+                    <img className='h-10 w-10 rounded-full' src={user.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `http://localhost:5000/images/usersAvatar/${user.avatar}`} alt={`${user.nickName}'s avatar`}/>
+                  </div>
+                  <div className='ml-3'>
+                    <div className='text-base font-medium leading-none text-white'>{user.nickName}</div>
+                    <div className='text-sm font-medium leading-none text-gray-400'>{user.email}</div>
+                  </div>
+                  {/*<button*/}
+                  {/*  type='button'*/}
+                  {/*  className='ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'*/}
+                  {/*>*/}
+                  {/*  <span className='sr-only'>View notifications</span>*/}
+                  {/*  <BellIcon className='h-6 w-6' aria-hidden='true'/>*/}
+                  {/*</button>*/}
+                </div> : <div>Loading...</div>
+              }
+              
               <div className='mt-3 space-y-1 px-2'>
                 {userNavigation.map((item) => (
                   <Disclosure.Button

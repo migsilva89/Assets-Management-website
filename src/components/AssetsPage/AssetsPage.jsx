@@ -1,6 +1,5 @@
 import React from 'react'
-import AssetsList from './AssetsList'
-import NavBar from '@/components/Layout/NavBar'
+import AssetsListTwo from './AssetsListTwo'
 import AddAsset from '@/components/AssetsPage/AssetCard/AddAsset'
 import MainLayout from '@/components/Layout/MainLayout'
 import Chat from '@/components/Chat/Chat'
@@ -20,7 +19,7 @@ const AssetsPage = ({ assets, user, setUpdateData, updateData }) => {
             <AddAsset/>
           </div>
           <div className='mx-auto max-w-7xl py-6 sm:px-6 lg:px-8'>
-            <AssetsList assets={assets} setUpdateData={setUpdateData} updateData={updateData}/>
+            <AssetsListTwo assets={assets} setUpdateData={setUpdateData} updateData={updateData}/>
           </div>
         </main>
       </div>
