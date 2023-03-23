@@ -1,5 +1,6 @@
 import React from 'react'
 import MainLayout from '@/components/Layout/MainLayout'
+import { redirectIfNotAuthenticated } from '@/utils/auth'
 
 const Rules = () => {
   return (
@@ -10,3 +11,7 @@ const Rules = () => {
 }
 
 export default Rules
+
+export async function getServerSideProps(ctx){
+  return await redirectIfNotAuthenticated(ctx)
+}

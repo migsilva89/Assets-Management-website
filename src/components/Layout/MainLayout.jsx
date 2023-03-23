@@ -7,7 +7,6 @@ const MainLayout = ({ children }) => {
       <NavBar/>
       {children}
     </>
-  
   )
 }
 

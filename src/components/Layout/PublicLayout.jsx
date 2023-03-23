@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const PublicLayout = ({ children }) => {
   return (
-    <div className='relative isolate pt-36 bg-gray-900 h-screen'>
+    <div className='relative isolate pt-36 bg-gray-900 h-screen '>
       <header className='absolute inset-x-0 top-0 z-50'>
         <nav className='flex items-center justify-between p-6 lg:px-8' aria-label='Global'>
           <div className='flex lg:flex-1'>
