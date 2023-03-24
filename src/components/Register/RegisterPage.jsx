@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { useForm } from 'react-hook-form'
 import { AuthContext } from '@/contexts/AuthContext'
@@ -6,14 +6,17 @@ import { AuthContext } from '@/contexts/AuthContext'
 const RegisterPage = () => {
   const { register, handleSubmit } = useForm()
   const { registerUser } = useContext(AuthContext)
+  const [isError, setIsError] = useState(false)
   
   async function handleRegister(data){
     const { name, nickName, email, password } = data
     try {
       //console.log(data)
       await registerUser(name, nickName, email, password)
+      setIsError(false)
     } catch (error) {
       console.log(error)
+      setIsError(true)
     }
   }
   
@@ -93,7 +96,7 @@ const RegisterPage = () => {
             />
           </div>
         </div>
-        
+        {isError && <p className='my-2 text-red-500 font-semibold'>Something went wrong, please recheck your data.</p>}
         <div className='flex items-center justify-between'>
           <div className='flex items-center'>
             <input

@@ -30,7 +30,8 @@ export function AuthProvider({ children }){
       setUser(user)
       await Router.push('/assets')
     } catch (error) {
-      console.error(error)
+      console.log(error)
+      throw error // re-throw the error here
     }
   }
   
@@ -48,6 +49,7 @@ export function AuthProvider({ children }){
       await Router.push('/assets')
     } catch (error) {
       console.error(error)
+      throw error // re-throw the error here
     }
   }
   
