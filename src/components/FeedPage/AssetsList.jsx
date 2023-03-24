@@ -4,16 +4,14 @@ import { AuthContext } from '@/contexts/AuthContext'
 import { api } from '@/services/api'
 import Loading from '@/components/Layout/Loading'
 
-const AssetsList = () => {
+const AssetsList = ({ user, updateData, setUpdateData }) => {
   const [assets, setAssets] = useState([])
-  const { user } = useContext(AuthContext)
-  const [updateData, setUpdateData] = useState(false)
   const [loading, setLoading] = useState(true)
   
   useEffect(() => {
     api.get('/assets').then(data => {
       // console.log(data)
-      setAssets(data.data)
+      setAssets(data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))) // Sort assets in descending order of creation date
       setLoading(false)
     }).catch(error => {
       alert('NO DATA')

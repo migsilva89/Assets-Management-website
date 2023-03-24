@@ -20,6 +20,7 @@ const UserProfilePage = ({ userInfo }) => {
         {_id}
       </div> : <div>Loading...</div>}
     
+    
     </MainLayout>
   )
 }
