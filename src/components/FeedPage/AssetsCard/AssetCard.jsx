@@ -41,7 +41,7 @@ const AssetCard = ({ asset, user, updateData, setUpdateData }) => {
                 <div className='absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10'/>
               </div>
               <div className='w-full'>
-                <CardHeader createdAt={createdAt} tags={tags} description={description} name={name}/>
+                <CardHeader owner={owner} user={user} createdAt={createdAt} tags={tags} description={description} name={name}/>
                 <div className='mt-6 flex justify-between border-t border-gray-900/5 pt-6 items-end'>
                   <div className='relative flex items-center gap-x-4'>
                     <img className='h-10 w-10 rounded-full' src={userOwner.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `http://localhost:5000/images/usersAvatar/${userOwner.avatar}`} alt={`${userOwner.nickName}'s avatar`}/>
