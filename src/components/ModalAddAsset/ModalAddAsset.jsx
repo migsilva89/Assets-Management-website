@@ -2,8 +2,9 @@ import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useForm } from 'react-hook-form'
 import { api } from '@/services/api'
 
-const ModalAddAsset = ({ setIsModalOpen, isOpen, user, setUpdateData, updateData }) => {
+const ModalAddAsset = ({ setIsModalOpen, isOpen, user, setUpdateData, updateData, handleUpdate, assetId }) => {
   const { register, handleSubmit } = useForm()
+  
   const handlePostAsset = (data, event) => {
     event.preventDefault()
     api.post(`/assets/`, { name: data.name, description: data.description }).then(function(response){
@@ -13,8 +14,21 @@ const ModalAddAsset = ({ setIsModalOpen, isOpen, user, setUpdateData, updateData
     })
   }
   
+  const handleUpdateAsset = (data, event) => {
+    event.preventDefault()
+    api.put(`/assets/${assetId}`, {
+      name: data.name,
+      description: data.description,
+      owner: user
+    }).then(function(response){
+      // console.log(response)
+      setUpdateData(!updateData)
+      setIsModalOpen(false)
+    })
+  }
+  
   return (
-    <form onSubmit={handleSubmit(handlePostAsset)}>
+    <form onSubmit={handleSubmit(handleUpdate ? handleUpdateAsset : handlePostAsset)}>
       <div className='space-y-12 sm:space-y-16 max-w-2xl mx-auto mt-10 bg-white px-10 py-5 rounded-xl'>
         <div>
           <h2 className='text-base font-semibold leading-7 text-gray-900'>Add an asset</h2>
@@ -26,7 +40,7 @@ const ModalAddAsset = ({ setIsModalOpen, isOpen, user, setUpdateData, updateData
                   type='text'
                   name='name'
                   className='block flex-1 border-0 bg-transparent py-1.5 pl-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                  placeholder='Insert asset name'
+                  placeholder={handleUpdate ? 'Edit asset name' : 'Insert asset name'}
                 />
               </div>
             </div>
@@ -43,13 +57,13 @@ const ModalAddAsset = ({ setIsModalOpen, isOpen, user, setUpdateData, updateData
                   className='block w-full max-w-2xl rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6'
                   defaultValue={''}
                 />
-                <p className='mt-3 text-sm leading-6 text-gray-600'>Write a few sentences about the asset.</p>
+                <p className='mt-3 text-sm leading-6 text-gray-600'>{handleUpdate ? 'Edit description with a few sentences' : 'Write a few sentences about the asset.'}</p>
               </div>
             </div>
           </div>
         </div>
         <div className='mt-6 flex items-center justify-end gap-x-6'>
-          <button onClick={((e) => {
+          <button onClick={(() => {
             setIsModalOpen(false)
           })} type='button' className='text-sm font-semibold leading-6 text-gray-900'>
             Cancel
