@@ -2,19 +2,24 @@ import React, { useContext, useEffect, useState } from 'react'
 import AssetCard from '@/components/FeedPage/AssetsCard/AssetCard'
 import { api } from '@/services/api'
 
-const AssetsList = ({ user, updateData, setUpdateData }) => {
+const AssetsList = ({ user, updateData, setUpdateData, selectedTag }) => {
   const [assets, setAssets] = useState([])
   const [loading, setLoading] = useState(true)
   
   useEffect(() => {
-    api.get('/assets').then(data => {
-      // console.log(data)
-      setAssets(data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))) // Sort assets in descending order of creation date
+    setLoading(true)
+    let url = '/assets'
+    if (selectedTag) {
+      url += `/tags/${selectedTag}`
+    }
+    api.get(url).then((response) => {
+      setAssets(response.data)
       setLoading(false)
-    }).catch(error => {
-      alert('NO DATA')
+    }).catch((error) => {
+      console.log(error)
+      setLoading(false)
     })
-  }, [updateData])
+  }, [updateData, selectedTag])
   
   if (!assets) {
     return ''

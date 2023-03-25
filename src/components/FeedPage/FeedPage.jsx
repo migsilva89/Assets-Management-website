@@ -2,15 +2,30 @@ import React, { useContext, useState } from 'react'
 import AssetsList from '@/components/FeedPage/AssetsList'
 import ModalAddAsset from '@/components/ModalAddAsset/ModalAddAsset'
 import { AuthContext } from '@/contexts/AuthContext'
+import Tags from '@/components/Tags/Tags'
 
 
-const FeedPage = () => {
+const FeedPage = ({ user }) => {
   const [updateData, setUpdateData] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { user } = useContext(AuthContext)
+  const [selectedTag, setSelectedTag] = useState(null)
+  
+  const handleTagClick = (tag) => {
+    setSelectedTag(tag)
+  }
   
   return (
     <main className='max-w-7xl mx-auto'>
+      {selectedTag &&
+        <div className='flex justify-center'>
+          <button onClick={() => {
+            setSelectedTag(null)
+          }} className='w-full mx-7 hover:bg-gray-300 mt-10 text-gray-300 bg-gray-700 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium'>
+            All Assets
+          </button>
+        </div>
+      }
+      <Tags handleTagClick={handleTagClick}/>
       <div className='flex justify-center'>
         <button onClick={() => {
           setIsModalOpen(true)
@@ -28,7 +43,7 @@ const FeedPage = () => {
           </div>
         </>
       )}
-      <AssetsList user={user} updateData={updateData} setUpdateData={setUpdateData}/>
+      <AssetsList selectedTag={selectedTag} user={user} updateData={updateData} setUpdateData={setUpdateData}/>
     </main>
   )
 }

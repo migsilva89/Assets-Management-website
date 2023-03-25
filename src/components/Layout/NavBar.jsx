@@ -17,7 +17,7 @@ const userConst = {
 }
 const navigation = [
   { name: 'Feed', href: '/assets', current: true },
-  { name: 'Tags', href: '/tags', current: false },
+  { name: 'All Users', href: '/users', current: false },
   { name: 'My Activity', href: '/activity', current: false },
   { name: 'Rules', href: '/rules', current: false }
   // { name: 'Reports', href: '#', current: false }
