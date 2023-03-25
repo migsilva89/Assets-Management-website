@@ -3,7 +3,7 @@ import { redirectIfNotAuthenticated } from '@/utils/auth'
 import MainLayout from '@/components/Layout/MainLayout'
 import FeedPage from '@/components/FeedPage/FeedPage'
 
-const Assets = () => {
+const Index = () => {
   
   return (
     <MainLayout>
@@ -18,6 +18,6 @@ export async function getServerSideProps(ctx){
   return await redirectIfNotAuthenticated(ctx)
 }
 
-export default Assets
+export default Index
 
 

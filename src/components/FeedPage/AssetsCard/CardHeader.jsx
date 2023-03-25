@@ -13,7 +13,6 @@ const CardHeader = ({ updateData, setUpdateData, user, owner, createdAt, tags, n
     })
   }
   
-  
   const formattedDate = new Date(createdAt).toLocaleString()
   
   return (
@@ -66,10 +65,10 @@ const CardHeader = ({ updateData, setUpdateData, user, owner, createdAt, tags, n
       </div>
       <div className='group relative w-fit'>
         <h3 className='mt-3 text-lg font-semibold leading-6 text-white'>
-          <a href='src/components/FeedPage/Assets#'>
+          <Link href={`/assets/${assetId}`}>
             <span className='absolute inset-0'/>
             {name}
-          </a>
+          </Link>
         </h3>
         <p className='mt-5 text-sm leading-6 text-white'>{description}</p>
       </div>
