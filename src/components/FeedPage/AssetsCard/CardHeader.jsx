@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
+import { api } from '@/services/api'
 
-const CardHeader = ({ user, owner, createdAt, tags, name, description }) => {
+const CardHeader = ({ updateData, setUpdateData, user, owner, createdAt, tags, name, description, assetId }) => {
+  
+  const handleDeleteAsset = () => {
+    api.delete(`/assets/${assetId}`).then(data => {
+      setUpdateData(!updateData)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+  
   return (
     <>
       <div className='flex items-center gap-x-4 text-xs'>
@@ -20,9 +30,7 @@ const CardHeader = ({ user, owner, createdAt, tags, name, description }) => {
         {owner === user._id &&
           <div className='text-end w-full p-2'>
             <button
-              onClick={(() => {
-                alert('delete')
-              })}
+              onClick={handleDeleteAsset}
               className='relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-800 to-gray-900 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800'>
             <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'>
                 Delete

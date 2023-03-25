@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AssetCard from '@/components/FeedPage/AssetsCard/AssetCard'
-import { AuthContext } from '@/contexts/AuthContext'
 import { api } from '@/services/api'
-import Loading from '@/components/Layout/Loading'
 
 const AssetsList = ({ user, updateData, setUpdateData }) => {
   const [assets, setAssets] = useState([])
