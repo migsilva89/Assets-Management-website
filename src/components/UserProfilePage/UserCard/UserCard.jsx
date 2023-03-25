@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, register }) => {
   const formattedDate = new Date(user.createdAt).toLocaleDateString()
+  console.log(user)
   return (
     <div>
       <div className='mt-10'>
@@ -15,7 +17,7 @@ const UserCard = ({ user }) => {
                 <label className='text-center block mb-2 text-sm font-medium text-gray-900 dark:text-white' htmlFor='file_input'>
                   Upload Avatar
                 </label>
-                <input className='block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400' id='file_input' type='file'/>
+                <input {...register('avatar')} className='block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400' id='file_input' type='file'/>
               </div>
             </div>
             <h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>{user.nickName}</h5>

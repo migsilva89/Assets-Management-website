@@ -9,6 +9,10 @@ export function AuthProvider({ children }){
   const [user, setUser] = useState(null)
   const isAuthenticated = !!user
   
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser)
+  }
+  
   useEffect(() => {
     const { 'devassets-token': token } = parseCookies()
     
@@ -61,7 +65,7 @@ export function AuthProvider({ children }){
   }
   
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut, registerUser }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut, registerUser, updateUser }}>
       {children}
     </AuthContext.Provider>
   )
