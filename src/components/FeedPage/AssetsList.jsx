@@ -13,7 +13,12 @@ const AssetsList = ({ user, updateData, setUpdateData, selectedTag }) => {
       url += `/tags/${selectedTag}`
     }
     api.get(url).then((response) => {
-      setAssets(response.data)
+      const sortedAssets = response.data.sort((a, b) => {
+        const dateA = new Date(a.createdAt)
+        const dateB = new Date(b.createdAt)
+        return dateB - dateA // sort by latest added date
+      })
+      setAssets(sortedAssets)
       setLoading(false)
     }).catch((error) => {
       console.log(error)

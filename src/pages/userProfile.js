@@ -13,7 +13,6 @@ const UserProfile = () => {
   const { register, handleSubmit } = useForm()
   // const [isError, setIsError] = useState(false)
   
-  
   if (!user) {
     return <Loading className='w-1/3'/>
   }

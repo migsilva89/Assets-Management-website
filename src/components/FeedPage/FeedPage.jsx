@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react'
 import AssetsList from '@/components/FeedPage/AssetsList'
 import ModalAddAsset from '@/components/ModalAddAsset/ModalAddAsset'
-import { AuthContext } from '@/contexts/AuthContext'
 import Tags from '@/components/Tags/Tags'
-
 
 const FeedPage = ({ user }) => {
   const [updateData, setUpdateData] = useState(false)
