@@ -1,8 +1,18 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import Loading from '@/components/Layout/Loading'
+import React, { useEffect, useState } from 'react'
+import { api } from '@/services/api'
+import UserAssetsModal from '@/components/Users/UserAssetsModal'
 
 const UserCard = ({ user, register }) => {
+  const [assetsByUser, setAssetsByUser] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  
+  useEffect(() => {
+    api.get(`/users/${user._id}/assets`).then(function(response){
+      setAssetsByUser(response.data)
+    }).catch(function(error){
+      console.log(error)
+    })
+  }, [])
   
   if (!user) {
     return ''
@@ -28,17 +38,29 @@ const UserCard = ({ user, register }) => {
                 </div>
               }
             </div>
-            <h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>{user.nickName}</h5>
+            <h5 className='mb-1 text-xl font-medium text-white'>{user.nickName}</h5>
             {register &&
               <div className='flex gap-2 pt-3'>
-                <p className='text-sm text-gray-500 dark:text-gray-400'>{user.name} - </p>
-                <p className='text-sm text-gray-500 dark:text-gray-400'>{user.email}</p>
+                <p className='text-sm text-gray-400'>{user.name} - </p>
+                <p className='text-sm text-gray-400'>{user.email}</p>
               </div>
             }
-            <span className='text-sm text-gray-500 dark:text-gray-400'>User since: {formattedDate}</span>
+            <span className='text-sm text-gray-400'>User since: {formattedDate}</span>
+            <div>
+              <button
+                onClick={((e) => {
+                  setShowModal(true)
+                })}
+                className='w-full hover:bg-gray-300 mt-10 text-gray-300 bg-indigo-800 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium'>
+                NumberAssets: {assetsByUser.length}
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      {showModal &&
+        <UserAssetsModal assets={assetsByUser} user={user} setShowModal={setShowModal}/>
+      }
     </div>
   
   )

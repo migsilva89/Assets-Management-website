@@ -9,7 +9,9 @@ const MyComponent = () => {
   console.log(query)
   return (
     <MainLayout>
-      {query.id}
+      <div className='text-white'>
+        {query.id}
+      </div>
     </MainLayout>
   )
 }

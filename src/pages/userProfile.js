@@ -24,7 +24,7 @@ const UserProfile = () => {
     formData.append('name', name)
     formData.append('nickName', nickName)
     formData.append('email', email)
-    formData.append('password', password)
+    // formData.append('password', password)
     
     // Verifica se um novo avatar foi selecionado
     if (avatar[0]) {

@@ -3,6 +3,7 @@ import MainLayout from '@/components/Layout/MainLayout'
 import { redirectIfNotAuthenticated } from '@/utils/auth'
 import { api } from '@/services/api'
 import UserCard from '@/components/UserProfilePage/UserCard/UserCard'
+import UserAssetsModal from '@/components/Users/UserAssetsModal'
 
 //const [assetsByUser, setAssetsByUser] = useState([])
 
@@ -28,8 +29,10 @@ const Users = () => {
     }).catch(function(error){
       console.log(error)
     })
+    
   }, [])
-  // setUsers(novodata)
+  
+  
   return (
     <MainLayout>
       <div className='max-w-7xl mb-10 mx-auto px-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4'>
@@ -37,6 +40,7 @@ const Users = () => {
           <UserCard key={index} user={user}/>
         ))}
       </div>
+    
     </MainLayout>
   )
 }
