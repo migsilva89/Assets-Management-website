@@ -23,13 +23,12 @@ const CardHeader = ({ updateData, setUpdateData, user, owner, createdAt, tags, n
             {formattedDate}
           </time>
           {tags.map((tag, index) => (
-            <Link
+            <div
               key={index}
-              href={tag}
-              className='relative z-10 rounded-full bg-gray-50 py-1.5 px-3 font-medium hover:text-white text-gray-600 hover:bg-gray-600'
+              className='relative z-10 rounded-full bg-gray-50 py-1.5 px-3 font-medium text-gray-600'
             >
               {tag}
-            </Link>
+            </div>
           ))}
         </div>
         {owner === user._id &&

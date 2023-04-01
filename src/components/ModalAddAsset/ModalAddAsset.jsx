@@ -1,14 +1,24 @@
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useForm } from 'react-hook-form'
 import { api } from '@/services/api'
+import { useState } from 'react'
 
-const ModalAddAsset = ({ setIsModalOpen, isOpen, user, setUpdateData, updateData, handleUpdate, assetId }) => {
+const ModalAddAsset = ({
+  setIsModalOpen,
+  isOpen,
+  user,
+  setUpdateData,
+  updateData,
+  handleUpdate,
+  assetId
+}) => {
   const { register, handleSubmit } = useForm()
+  const [tags, setTags] = useState([])
   
   const handlePostAsset = (data, event) => {
     event.preventDefault()
-    api.post(`/assets/`, { name: data.name, description: data.description }).then(function(response){
-      // console.log(response)
+    const tagsArray = data.tags.split(',').map(tag => tag.trim())
+    api.post(`/assets/`, { name: data.name, description: data.description, tags: tagsArray }).then(function(response){
       setUpdateData(!updateData)
       setIsModalOpen(false)
     })
@@ -16,15 +26,21 @@ const ModalAddAsset = ({ setIsModalOpen, isOpen, user, setUpdateData, updateData
   
   const handleUpdateAsset = (data, event) => {
     event.preventDefault()
+    const tagsArray = data.tags.split(',').map(tag => tag.trim())
     api.put(`/assets/${assetId}`, {
       name: data.name,
       description: data.description,
-      owner: user
+      owner: user,
+      tags: tagsArray
     }).then(function(response){
-      // console.log(response)
       setUpdateData(!updateData)
       setIsModalOpen(false)
     })
+  }
+  
+  
+  const handleTagsChange = (event) => {
+    setTags(event.target.value.split(',').map(tag => tag.trim()))
   }
   
   return (
@@ -60,7 +76,23 @@ const ModalAddAsset = ({ setIsModalOpen, isOpen, user, setUpdateData, updateData
                 <p className='mt-3 text-sm leading-6 text-gray-600'>{handleUpdate ? 'Edit description with a few sentences' : 'Write a few sentences about the asset.'}</p>
               </div>
             </div>
+            <div>
+              <label htmlFor='tags' className='block text-sm font-medium leading-6 text-gray-900'>
+              </label>
+              <div className='mt-2'>
+                <input
+                  {...register('tags')}
+                  id='tags'
+                  name='tags'
+                  type='text'
+                  autoComplete='off'
+                  className='block w-full max-w-2xl rounded-md border-gray-300 shadow-sm focus:border-indigo-600 focus:ring-0 sm:text-sm sm:leading-5'
+                  placeholder={handleUpdate ? 'Edit tags' : 'Insert tags separated by comma'}
+                />
+              </div>
+            </div>
           </div>
+        
         </div>
         <div className='mt-6 flex items-center justify-end gap-x-6'>
           <button onClick={(() => {
