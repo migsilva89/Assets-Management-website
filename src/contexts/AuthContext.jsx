@@ -8,6 +8,7 @@ export const AuthContext = createContext({})
 export function AuthProvider({ children }){
   const [user, setUser] = useState(null)
   const isAuthenticated = !!user
+  const [updateData, setUpdateData] = useState(false)
   
   const updateUser = (updatedUser) => {
     setUser(updatedUser)
@@ -53,7 +54,7 @@ export function AuthProvider({ children }){
       await Router.push('/assets')
     } catch (error) {
       console.error(error)
-      throw error // re-throw the error here
+      throw new Error(error.response.data.error) // re-throw the error with the error message
     }
   }
   
@@ -65,7 +66,16 @@ export function AuthProvider({ children }){
   }
   
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut, registerUser, updateUser }}>
+    <AuthContext.Provider value={{
+      user,
+      isAuthenticated,
+      signIn,
+      signOut,
+      registerUser,
+      updateUser,
+      updateData,
+      setUpdateData
+    }}>
       {children}
     </AuthContext.Provider>
   )

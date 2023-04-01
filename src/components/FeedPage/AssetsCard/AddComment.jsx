@@ -33,7 +33,6 @@ const AddComment = ({ setUpdateData, updateData, id }) => {
               id='comment'
               className='block text-white w-full bg-gray-900 resize-none border-0 border-b border-transparent p-0 pb-2 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-0 sm:text-sm sm:leading-6'
               placeholder='Add your comment...'
-              defaultValue={''}
               value={comment}
             />
           </div>

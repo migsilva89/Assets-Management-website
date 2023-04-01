@@ -2,9 +2,10 @@ import React, { useContext, useState } from 'react'
 import AssetsList from '@/components/FeedPage/AssetsList'
 import ModalAddAsset from '@/components/ModalAddAsset/ModalAddAsset'
 import Tags from '@/components/Tags/Tags'
+import { AuthContext } from '@/contexts/AuthContext'
 
 const FeedPage = ({ user }) => {
-  const [updateData, setUpdateData] = useState(false)
+  const { updateData, setUpdateData } = useContext(AuthContext)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedTag, setSelectedTag] = useState(null)
   

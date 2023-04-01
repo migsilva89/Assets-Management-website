@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MainLayout from '@/components/Layout/MainLayout'
 import { useRouter } from 'next/router'
 import { api } from '@/services/api'
 import Loading from '@/components/Layout/Loading'
 import Head from 'next/head'
+import AssetCard from '@/components/FeedPage/AssetsCard/AssetCard'
+import { AuthContext } from '@/contexts/AuthContext'
 
 const SingleAssetPage = () => {
   const router = useRouter()
   const { query } = router
   const [asset, setAsset] = useState(null)
+  const { user, updateData, setUpdateData } = useContext(AuthContext)
+  const [loading, setLoading] = useState(true)
   
   useEffect(() => {
     api.get(`/assets/${query.id}`).then(function(response){
@@ -17,7 +21,7 @@ const SingleAssetPage = () => {
     }).catch(function(error){
       console.log(error)
     })
-  }, [query.id])
+  }, [query.id, updateData])
   
   if (!asset) {
     // Renders a loading component if the asset is not yet available
@@ -31,13 +35,15 @@ const SingleAssetPage = () => {
         <title>Dev Assets | {asset.name}</title>
         <meta name='description' content={asset.description}/>
       </Head>
-      <div className='text-white'>
-        <h1>{asset.name}</h1>
-        <h1>{asset.description}</h1>
-        <h1>{asset.createdAt}</h1>
-        <p>Add comments</p>
-        <p>Add tags</p>
-      </div>
+      <AssetCard
+        asset={asset}
+        setLoading={setLoading}
+        loading={loading}
+        user={user}
+        updateData={updateData}
+        setUpdateData={setUpdateData}
+      />
+    
     </MainLayout>
   )
 }

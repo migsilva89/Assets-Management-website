@@ -11,12 +11,10 @@ const Chat = () => {
   const [error, setError] = useState('')
   const { user } = useContext(AuthContext)
   
-  
   useEffect(() => {
     if (!socket.connected) {
       setError('Unable to connect to server, please refresh.')
     }
-    
     socket.on('receive_message', (data) => {
       console.log('Received message:', data)
       setMessages((prevMessages) => [...prevMessages, data])
@@ -27,17 +25,25 @@ const Chat = () => {
     }
   }, [])
   
-  
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!message.trim()) {
       setError('Message cannot be empty')
       return
     }
-    socket.emit('send_message', {
+    
+    const newMessage = {
       message: message,
-      username: user.nickName
-    })
+      username: user.nickName,
+      self: true // flag the message as the user's own message
+    }
+    
+    // add the new message to the state
+    setMessages((prevMessages) => [...prevMessages, newMessage])
+    
+    // emit the message to the server
+    socket.emit('send_message', newMessage)
+    
     setMessage('')
   }
   
@@ -52,7 +58,6 @@ const Chat = () => {
           <h1 className='text-3xl'>Real-Time Chat</h1>
           <p>Discuss and exchange resources with other professionals in your field</p>
         </div>
-        
         {error &&
           <p className='text-red-500'>{error}</p>
         }
@@ -72,14 +77,14 @@ const Chat = () => {
         </form>
         <div className='mt-10 '>
           {messages.map((msg, idx) => (
-            <div key={idx} className=' my-5'>
+            <div key={idx} className={`my-5 ${msg.self ? 'text-right' : ''}`}>
               <p className='text-gray-600 text-sm py-2'>
                 {new Date().toLocaleTimeString()}
               </p>
-              <div className='bg-gray-800 p-2 rounded-lg'>
+              <div className={`bg-gray-800 p-2 rounded-lg ${msg.self ? 'bg-blue-500 text-white' : ''}`}>
                 <div className='flex items-center space-x-2'>
                   <div
-                    className='text-white w-8 h-8 rounded-full flex items-center justify-center text-white bg-blue-500'
+                    className={`text-white w-8 h-8 rounded-full flex items-center justify-center ${msg.self ? 'bg-white text-blue-500' : 'bg-blue-500'}`}
                   >
                     {msg.username?.charAt(0).toUpperCase()}
                   </div>
@@ -88,7 +93,6 @@ const Chat = () => {
                 </div>
               </div>
             </div>
-          
           ))}
         </div>
       </div>
