@@ -1,42 +1,100 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import io from 'socket.io-client'
+import { AuthContext } from '@/contexts/AuthContext'
+import Loading from '@/components/Layout/Loading'
 
-const socket = io.connect('http://localhost:5000/')
+const socket = io.connect(process.env.REACT_APP_API_URL || 'http://localhost:5000')
 
 const Chat = () => {
   const [message, setMessage] = useState('')
-  const [messageReceived, setMessageReceived] = useState('')
+  const [messages, setMessages] = useState([])
+  const [error, setError] = useState('')
+  const { user } = useContext(AuthContext)
   
-  const sendMessage = () => {
-    socket.emit('send_message', {
-      message: message
-    })
-    // console.log(message)
-  }
   
   useEffect(() => {
+    if (!socket.connected) {
+      setError('Unable to connect to server, please refresh.')
+    }
+    
     socket.on('receive_message', (data) => {
-      setMessageReceived(data.message)
+      console.log('Received message:', data)
+      setMessages((prevMessages) => [...prevMessages, data])
     })
-  }, [socket])
+    
+    return () => {
+      socket.off('receive_message')
+    }
+  }, [])
+  
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (!message.trim()) {
+      setError('Message cannot be empty')
+      return
+    }
+    socket.emit('send_message', {
+      message: message,
+      username: user.nickName
+    })
+    setMessage('')
+  }
+  
+  if (!user) {
+    return <Loading className='w-52 h-52'/>
+  }
   
   return (
-    <>
-      <div className='flex justify-center border-2 py-4 px-8 m-10 bg-gray-800 gap-5'>
-        <input placeholder='message' type='text' className='w-full' onChange={(event) => {
-          setMessage(event.target.value)
+    <div className='h-screen py-10 mx-auto max-w-7xl w-full md:px-8 px-6'>
+      <div className=' items-center space-y-2'>
+        <div className='text-gray-100'>
+          <h1 className='text-3xl'>Real-Time Chat</h1>
+          <p>Discuss and exchange resources with other professionals in your field</p>
+        </div>
+        
+        {error &&
+          <p className='text-red-500'>{error}</p>
         }
-        }/>
-        <button onClick={sendMessage} className='text-white bg-green-700 px-2 w-1/2'>Send Message</button>
-      
+        <form onSubmit={handleSubmit}>
+          <input
+            className='w-full p-2 rounded-md border border-blue-500 focus:border-blue-800 focus:outline-none'
+            type='text'
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button
+            className='mt-5 p-2 w-full bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none'
+            type='submit'
+          >
+            Send
+          </button>
+        </form>
+        <div className='mt-10 '>
+          {messages.map((msg, idx) => (
+            <div key={idx} className=' my-5'>
+              <p className='text-gray-600 text-sm py-2'>
+                {new Date().toLocaleTimeString()}
+              </p>
+              <div className='bg-gray-800 p-2 rounded-lg'>
+                <div className='flex items-center space-x-2'>
+                  <div
+                    className='text-white w-8 h-8 rounded-full flex items-center justify-center text-white bg-blue-500'
+                  >
+                    {msg.username?.charAt(0).toUpperCase()}
+                  </div>
+                  <p className='text-gray-500'>{msg.username}: </p>
+                  <p className='text-gray-200 text-sm pl-10'>{msg.message}</p>
+                </div>
+              </div>
+            </div>
+          
+          ))}
+        </div>
       </div>
-      <div className='text-red-500'>
-        <h1>Messages:</h1>
-        <p>{messageReceived}</p>
-      </div>
-    </>
-  
+    </div>
   )
 }
 
 export default Chat
+

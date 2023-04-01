@@ -11,6 +11,8 @@ import { api } from '@/services/api'
 const UserProfile = () => {
   const { user, updateUser } = useContext(AuthContext)
   const { register, handleSubmit } = useForm()
+  const [isError, setIsError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(false)
   // const [isError, setIsError] = useState(false)
   
   if (!user) {
@@ -24,7 +26,7 @@ const UserProfile = () => {
     formData.append('name', name)
     formData.append('nickName', nickName)
     formData.append('email', email)
-    // formData.append('password', password)
+    formData.append('password', password)
     
     // Verifica se um novo avatar foi selecionado
     if (avatar[0]) {
@@ -32,14 +34,12 @@ const UserProfile = () => {
     }
     
     api.put(`/users`, formData).then(function(response){
-      // Atualiza o usuário no AuthContext com a resposta da API
       updateUser(response.data)
-      // setIsError(false)
-      // Mostra a mensagem de sucesso
-      // alert('User edited')
+      setIsError(false)
     }).catch(function(error){
       console.log(error)
-      // setIsError(true)
+      setIsError(true)
+      setErrorMessage(error.response.data.error)
     })
   }
   
@@ -47,6 +47,13 @@ const UserProfile = () => {
     <MainLayout>
       <main className='w-full max-w-7xl px-8 mx-auto'>
         <UserCard user={user} register={register}/>
+        {isError ?
+          <div className='flex justify-center my-10'>
+            <div className='text-white text-center px-4 py-2 bg-red-500 w-1/3 rounded-xl'>{errorMessage}</div>
+            :
+          </div> :
+          ''
+        }
         <EditUserForm
           user={user}
           handleEditUser={handleEditUser}
@@ -56,6 +63,7 @@ const UserProfile = () => {
     </MainLayout>
   )
 }
+
 
 //verificar se o temos token valido nos cookies, se nao redireciona para login.
 //mudamos isto opara uma util

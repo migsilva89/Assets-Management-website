@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import { api } from '@/services/api'
 import Loading from '@/components/Layout/Loading'
 
-
 const MyComponent = () => {
   const router = useRouter()
   const { query } = router

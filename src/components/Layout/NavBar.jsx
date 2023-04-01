@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from 'react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { AuthContext } from '@/contexts/AuthContext'
 import Link from 'next/link'
@@ -9,17 +9,11 @@ function classNames(...classes){
   return classes.filter(Boolean).join(' ')
 }
 
-const userConst = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-}
 const navigation = [
   { name: 'Feed', href: '/assets', current: true },
   { name: 'All Users', href: '/users', current: false },
   // { name: 'My Activity', href: '/activity', current: false },
-  { name: 'Chat', href: '/rules', current: false }
+  { name: 'Chat', href: '/chatchannel', current: false }
   // { name: 'Reports', href: '#', current: false }
 ]
 const userNavigation = [
@@ -27,11 +21,6 @@ const userNavigation = [
   // { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' }
 ]
-
-const useIsActive = (href) => {
-  const { pathname } = useRouter()
-  return pathname === href
-}
 
 const NavBar = () => {
   const useIsActive = (href) => {
