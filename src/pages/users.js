@@ -3,22 +3,7 @@ import MainLayout from '@/components/Layout/MainLayout'
 import { redirectIfNotAuthenticated } from '@/utils/auth'
 import { api } from '@/services/api'
 import UserCard from '@/components/UserProfilePage/UserCard/UserCard'
-import UserAssetsModal from '@/components/Users/UserAssetsModal'
-
-//const [assetsByUser, setAssetsByUser] = useState([])
-
-// useEffect(() => {
-//   api.get(`/users/${user._id}/assets`).then(function(response){
-//     setAssetsByUser(response.data)
-//   }).catch(function(error){
-//     console.log(error)
-//   })
-// }, [])
-//
-// if (!assetsByUser) {
-//   return ''
-// }
-
+import Head from 'next/head'
 
 const Users = () => {
   const [users, setUsers] = useState([])
@@ -32,15 +17,17 @@ const Users = () => {
     
   }, [])
   
-  
   return (
     <MainLayout>
+      <Head>
+        <title>Dev Assets | Users</title>
+        <meta name='description' content='Explore and connect with other developers on Dev Assets.'/>
+      </Head>
       <div className='max-w-7xl mb-10 mx-auto px-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4'>
         {users.map((user, index) => (
           <UserCard key={index} user={user}/>
         ))}
       </div>
-    
     </MainLayout>
   )
 }

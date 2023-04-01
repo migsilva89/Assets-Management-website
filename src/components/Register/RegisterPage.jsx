@@ -11,11 +11,9 @@ const RegisterPage = () => {
   async function handleRegister(data){
     const { name, nickName, email, password } = data
     try {
-      //console.log(data)
       await registerUser(name, nickName, email, password)
       setIsError(false)
     } catch (error) {
-      console.log(error)
       setIsError(true)
     }
   }

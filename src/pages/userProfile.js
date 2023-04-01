@@ -7,13 +7,13 @@ import UserCard from '@/components/UserProfilePage/UserCard/UserCard'
 import EditUserForm from '@/components/UserProfilePage/EditUserForm'
 import { useForm } from 'react-hook-form'
 import { api } from '@/services/api'
+import Head from 'next/head'
 
 const UserProfile = () => {
   const { user, updateUser } = useContext(AuthContext)
   const { register, handleSubmit } = useForm()
   const [isError, setIsError] = useState(false)
   const [errorMessage, setErrorMessage] = useState(false)
-  // const [isError, setIsError] = useState(false)
   
   if (!user) {
     return <Loading className='w-1/3'/>
@@ -37,7 +37,6 @@ const UserProfile = () => {
       updateUser(response.data)
       setIsError(false)
     }).catch(function(error){
-      console.log(error)
       setIsError(true)
       setErrorMessage(error.response.data.error)
     })
@@ -45,6 +44,10 @@ const UserProfile = () => {
   
   return (
     <MainLayout>
+      <Head>
+        <title>Dev Assets | User Profile</title>
+        <meta name='description' content='View and edit your user profile.'/>
+      </Head>
       <main className='w-full max-w-7xl px-8 mx-auto'>
         <UserCard user={user} register={register}/>
         {isError ?
@@ -65,8 +68,8 @@ const UserProfile = () => {
 }
 
 
-//verificar se o temos token valido nos cookies, se nao redireciona para login.
-//mudamos isto opara uma util
+// Verify if the user has a valid token in cookies, if not, redirect to login.
+// This was moved to a utility function.
 export async function getServerSideProps(ctx){
   return await redirectIfNotAuthenticated(ctx)
 }

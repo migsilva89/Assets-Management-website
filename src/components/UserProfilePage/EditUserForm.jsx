@@ -8,7 +8,6 @@ const EditUserForm = ({ register, handleEditUser, handleSubmit }) => {
     api.delete(`/users`).then(function(response){
     }).catch(function(error){
       console.log(error)
-      // setIsError(true)
     })
     console.log('DELETE USER')
     Router.push('/login')
