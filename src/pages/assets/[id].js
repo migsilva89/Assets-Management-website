@@ -24,8 +24,7 @@ const SingleAssetPage = () => {
   }, [query.id, updateData])
   
   if (!asset) {
-    // Renders a loading component if the asset is not yet available
-    return <Loading/>
+    return <Loading className='w-1/6'/>
   }
   
   console.log(asset)
