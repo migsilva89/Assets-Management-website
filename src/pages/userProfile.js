@@ -67,9 +67,6 @@ const UserProfile = () => {
   )
 }
 
-
-// Verify if the user has a valid token in cookies, if not, redirect to login.
-// This was moved to a utility function.
 export async function getServerSideProps(ctx){
   return await redirectIfNotAuthenticated(ctx)
 }

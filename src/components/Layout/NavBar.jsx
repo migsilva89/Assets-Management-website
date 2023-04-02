@@ -4,6 +4,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { AuthContext } from '@/contexts/AuthContext'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+import logo from '@/Images/logo.png'
 
 function classNames(...classes){
   return classes.filter(Boolean).join(' ')
@@ -12,13 +14,10 @@ function classNames(...classes){
 const navigation = [
   { name: 'Feed', href: '/assets', current: true },
   { name: 'All Users', href: '/users', current: false },
-  // { name: 'My Activity', href: '/activity', current: false },
   { name: 'Chat', href: '/chatchannel', current: false }
-  // { name: 'Reports', href: '#', current: false }
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '/userProfile' },
-  // { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' }
 ]
 
@@ -39,10 +38,13 @@ const NavBar = () => {
               <div className='flex items-center'>
                 <div className='flex-shrink-0'>
                   <Link href='/'>
-                    <img
-                      className='h-8 w-8'
-                      src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500'
-                      alt='Your Company'
+                    <Image
+                      src={logo}
+                      alt='asset photo'
+                      className='inset-0 h-10 w-auto rounded-2xl bg-gray-500'
+                      width={500}
+                      height={500}
+                      priority
                     />
                   </Link>
                 </div>
@@ -68,14 +70,6 @@ const NavBar = () => {
               </div>
               <div className='hidden md:block'>
                 <div className='ml-4 flex items-center md:ml-6'>
-                  {/*<button*/}
-                  {/*  type='button'*/}
-                  {/*  className='rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'*/}
-                  {/*>*/}
-                  {/*  <span className='sr-only'>View notifications</span>*/}
-                  {/*  <BellIcon className='h-6 w-6' aria-hidden='true'/>*/}
-                  {/*</button>*/}
-                  
                   {/* Profile dropdown */}
                   <Menu as='div' className='relative ml-3'>
                     <div>
@@ -170,16 +164,8 @@ const NavBar = () => {
                     <div className='text-base font-medium leading-none text-white'>{user.nickName}</div>
                     <div className='text-sm font-medium leading-none text-gray-400'>{user.email}</div>
                   </div>
-                  {/*<button*/}
-                  {/*  type='button'*/}
-                  {/*  className='ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'*/}
-                  {/*>*/}
-                  {/*  <span className='sr-only'>View notifications</span>*/}
-                  {/*  <BellIcon className='h-6 w-6' aria-hidden='true'/>*/}
-                  {/*</button>*/}
                 </div> : <div>Loading...</div>
               }
-              
               <div className='mt-3 space-y-1 px-2'>
                 {userNavigation.map((item) => (
                   <Disclosure.Button

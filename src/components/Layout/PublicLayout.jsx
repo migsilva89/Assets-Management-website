@@ -1,5 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import logo from '../../Images/logo.png'
 
 const PublicLayout = ({ children }) => {
   return (
@@ -9,10 +11,13 @@ const PublicLayout = ({ children }) => {
           <div className='flex lg:flex-1'>
             <Link href='/' className='-m-1.5 p-1.5'>
               <span className='sr-only'>Dev Assets Pro APP</span>
-              <img
-                className='h-8 w-auto'
-                src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500'
-                alt='Dev Assets Pro APP'
+              <Image
+                src={logo}
+                alt='asset photo'
+                className='inset-0 h-10 m-3 w-auto rounded-2xl bg-gray-500'
+                width={500}
+                height={500}
+                priority
               />
             </Link>
           </div>
