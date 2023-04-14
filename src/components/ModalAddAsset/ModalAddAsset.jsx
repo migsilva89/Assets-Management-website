@@ -1,32 +1,31 @@
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useForm } from 'react-hook-form'
 import { api } from '@/services/api'
 import { useState } from 'react'
 
 const ModalAddAsset = ({
-  setIsModalOpen,
-  isOpen,
-  user,
-  setUpdateData,
-  updateData,
-  handleUpdate,
-  assetId
-}) => {
+                         setIsModalOpen,
+                         isOpen,
+                         user,
+                         setUpdateData,
+                         updateData,
+                         handleUpdate,
+                         assetId
+                       }) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [tags, setTags] = useState([])
-  
+
   const handlePostAsset = (data, event) => {
     event.preventDefault()
     const tagsArray = data.tags.split(',').map(tag => tag.trim()).filter(tag => tag)
-    if (tagsArray.length === 0) {
+    if (tagsArray.length===0) {
       return
     }
-    api.post(`/assets/`, { name: data.name, description: data.description, tags: tagsArray }).then(function(response){
+    api.post(`/assets/`, { name: data.name, description: data.description, tags: tagsArray }).then(function(response) {
       setUpdateData(!updateData)
       setIsModalOpen(false)
     })
   }
-  
+
   const handleUpdateAsset = (data, event) => {
     event.preventDefault()
     const tagsArray = data.tags.split(',').map(tag => tag.trim())
@@ -35,14 +34,14 @@ const ModalAddAsset = ({
       description: data.description,
       owner: user,
       tags: tagsArray
-    }).then(function(response){
+    }).then(function(response) {
       setUpdateData(!updateData)
       setIsModalOpen(false)
     })
   }
-  
+
   return (
-    <form onSubmit={handleSubmit(handleUpdate ? handleUpdateAsset : handlePostAsset)}>
+    <form onSubmit={handleSubmit(handleUpdate ? handleUpdateAsset: handlePostAsset)}>
       <div className='space-y-12 sm:space-y-16 max-w-2xl mx-auto mt-10 bg-white px-10 py-5 rounded-xl'>
         <div>
           <h2 className='text-base font-semibold leading-7 text-gray-900'>Add an asset</h2>
@@ -54,7 +53,7 @@ const ModalAddAsset = ({
                   type='text'
                   name='name'
                   className='block flex-1 border-0 bg-transparent py-1.5 pl-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                  placeholder={handleUpdate ? 'Edit asset name' : 'Insert asset name'}
+                  placeholder={handleUpdate ? 'Edit asset name': 'Insert asset name'}
                 />
               </div>
               {errors.name && <div className='text-red-500'>Please enter a name.</div>}
@@ -73,8 +72,8 @@ const ModalAddAsset = ({
                   defaultValue={''}
                 />
                 {errors.description && <div className='text-red-500'>Please enter a description.</div>}
-                
-                <p className='mt-3 text-sm leading-6 text-gray-600'>{handleUpdate ? 'Edit description with a few sentences' : 'Write a few sentences about the asset.'}</p>
+
+                <p className='mt-3 text-sm leading-6 text-gray-600'>{handleUpdate ? 'Edit description with a few sentences': 'Write a few sentences about the asset.'}</p>
               </div>
             </div>
             <div>
@@ -88,13 +87,13 @@ const ModalAddAsset = ({
                   type='text'
                   autoComplete='off'
                   className='block w-full max-w-2xl rounded-md border-gray-300 shadow-sm focus:border-indigo-600 focus:ring-0 sm:text-sm sm:leading-5'
-                  placeholder={handleUpdate ? 'Edit tags' : 'Insert tags separated by comma'}
+                  placeholder={handleUpdate ? 'Edit tags': 'Insert tags separated by comma'}
                 />
                 {errors.tags && <div className='text-red-500'>Please at least one tag.</div>}
               </div>
             </div>
           </div>
-        
+
         </div>
         <div className='mt-6 flex items-center justify-end gap-x-6'>
           <button onClick={(() => {
