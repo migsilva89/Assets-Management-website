@@ -5,7 +5,7 @@ import UserAssetsModal from '@/components/Users/UserAssetsModal'
 const UserCard = ({ user, register }) => {
   const [assetsByUser, setAssetsByUser] = useState([])
   const [showModal, setShowModal] = useState(false)
-  
+
   useEffect(() => {
     api.get(`/users/${user._id}/assets`).then(function(response){
       setAssetsByUser(response.data)
@@ -13,13 +13,13 @@ const UserCard = ({ user, register }) => {
       console.log(error)
     })
   }, [])
-  
+
   if (!user) {
     return ''
   }
-  
+
   const formattedDate = new Date(user.createdAt).toLocaleDateString()
-  
+
   return (
     <div>
       <div className='mt-10'>
@@ -27,7 +27,7 @@ const UserCard = ({ user, register }) => {
           <div className='flex flex-col items-center py-7'>
             <div>
               <div className='flex justify-center'>
-                <img className='w-16 h-16 mb-3 rounded-full shadow-lg' src={user.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `http://localhost:5000/images/usersAvatar/${user.avatar}`} alt='Bonnie image'/>
+                <img className='w-16 h-16 mb-3 rounded-full shadow-lg' src={user.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `http://localhost:3000/images/usersAvatar/${user.avatar}`} alt='Bonnie image'/>
               </div>
               {register &&
                 <div className='mb-5 w-2/3 mx-auto'>
@@ -62,7 +62,7 @@ const UserCard = ({ user, register }) => {
         <UserAssetsModal assets={assetsByUser} user={user} setShowModal={setShowModal}/>
       }
     </div>
-  
+
   )
 }
 
