@@ -12,7 +12,7 @@ const AssetCard = ({ asset, user, updateData, setUpdateData }) => {
   const [activateComments, setActivateComments] = useState(false)
   const { name, description, owner, tags, likes, comments, createdAt, _id } = asset
   const [userOwner, setUserOwner] = useState()
-  
+
   useEffect(() => {
     api.get(`/users/${owner}`).then(data => {
       setUserOwner(data.data)
@@ -20,12 +20,12 @@ const AssetCard = ({ asset, user, updateData, setUpdateData }) => {
       console.log(error)
     })
   }, [owner])
-  
-  
+
+
   if (!userOwner || !user) {
     return <Loading className='w-52 h-52'/>
   }
-  
+
   return (
     <div className='mt-10 mx-auto max-w-7xl'>
       <div className='px-8 py-8'>
@@ -60,13 +60,10 @@ const AssetCard = ({ asset, user, updateData, setUpdateData }) => {
                 />
                 <div className='mt-6 flex justify-between border-t border-gray-900/5 pt-6 items-end'>
                   <div className='relative flex items-center gap-x-4'>
-                    <Image
+                    <img
                       className='h-10 w-10 rounded-full'
                       src={userOwner.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `https://nodejs.assetsmanagement.website/images/usersAvatar/${userOwner.avatar}`}
                       alt={`${userOwner.nickName}'s avatar`}
-                      width={40}
-                      height={40}
-                      priority
                     />
                     <div className='text-sm leading-6'>
                       <p className='font-semibold text-white'>
