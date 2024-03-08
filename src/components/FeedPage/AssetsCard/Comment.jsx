@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '@/services/api'
-import Loading from '@/components/Layout/Loading'
 
 const Comment = ({ comment, setUpdateData, updateData, id, user }) => {
   const [userOwner, setUserOwner] = useState()
   useEffect(() => {
-    
     api.get(`/users/${comment.author}`).then(data => {
       setUserOwner(data.data)
       setUpdateData(!updateData)
     }).catch(error => {
       alert('NO DATA')
     })
-  }, [comment.author])
-  
+  }, [comment.author, setUpdateData, updateData])
+
   const handleDeleteComment = (commentId, event) => {
     // console.log(commentId)
     api.delete(`/assets/${id}/comments/${commentId}`).then(function(response){
@@ -21,13 +19,13 @@ const Comment = ({ comment, setUpdateData, updateData, id, user }) => {
       setUpdateData(!updateData)
     })
   }
-  
+
   if (!userOwner) {
     return ''
   }
   console.log(user._id === comment.author)
-  
-  
+
+
   return (
     <div className='max-w-2xl lg:max-w-7xl mx-auto flex items-center justify-between gap-10 text-sm font-thin text-white mt-7 '>
       <div className='flex items-center gap-5 my-5'>

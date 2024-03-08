@@ -22,13 +22,14 @@ const userNavigation = [
 ]
 
 const NavBar = () => {
-  const useIsActive = (href) => {
-    const { pathname } = useRouter()
+  const { pathname } = useRouter()
+  const isActive = (href) => {
+
     return pathname === href
   }
   const { user } = useContext(AuthContext)
   const { signOut } = useContext(AuthContext)
-  
+
   return (
     <Disclosure as='nav' className='bg-gray-800'>
       {({ open }) => (
@@ -55,12 +56,12 @@ const NavBar = () => {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          useIsActive(item.href)
+                            isActive(item.href)
                             ? 'bg-gray-900 text-white'
                             : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
                         )}
-                        aria-current={useIsActive(item.href) ? 'page' : undefined}
+                        aria-current={isActive(item.href) ? 'page' : undefined}
                       >
                         {item.name}
                       </Link>
@@ -135,7 +136,7 @@ const NavBar = () => {
               </div>
             </div>
           </div>
-          
+
           <Disclosure.Panel className='md:hidden'>
             <div className='space-y-1 px-2 pt-2 pb-3 sm:px-3'>
               {navigation.map((item) => (
@@ -156,7 +157,7 @@ const NavBar = () => {
             <div className='border-t border-gray-700 pt-4 pb-3'>
               {user ?
                 <div className='flex items-center px-5'>
-                  
+
                   <div className='flex-shrink-0'>
                     <img className='h-10 w-10 rounded-full' src={user.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `http://localhost:5000/images/usersAvatar/${user.avatar}`} alt={`${user.nickName}'s avatar`}/>
                   </div>
