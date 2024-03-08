@@ -62,7 +62,7 @@ const AssetCard = ({ asset, user, updateData, setUpdateData }) => {
                   <div className='relative flex items-center gap-x-4'>
                     <Image
                       className='h-10 w-10 rounded-full'
-                      src={userOwner.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `http://localhost:3000/images/usersAvatar/${userOwner.avatar}`}
+                      src={userOwner.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `https://nodejs.assetsmanagement.website/images/usersAvatar/${userOwner.avatar}`}
                       alt={`${userOwner.nickName}'s avatar`}
                       width={40}
                       height={40}
