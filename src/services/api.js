@@ -3,7 +3,7 @@ import { parseCookies } from 'nookies'
 
 const { 'devassets-token': token } = parseCookies()
 export const api = axios.create({
-  baseURL: 'https://nodejs.assetsmanagement.website/api/v1/'
+  baseURL: 'https://nodejs.assetsmanagement.website/api/v1'
 })
 
 /**

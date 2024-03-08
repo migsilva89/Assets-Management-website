@@ -3,14 +3,14 @@ import io from 'socket.io-client'
 import { AuthContext } from '@/contexts/AuthContext'
 import Loading from '@/components/Layout/Loading'
 
-const socket = io.connect(process.env.REACT_APP_API_URL || 'http://localhost:5000')
+const socket = io.connect('wss://nodejs.assetsmanagement.website');
 
 const Chat = () => {
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
   const [error, setError] = useState('')
   const { user } = useContext(AuthContext)
-  
+
   useEffect(() => {
     if (!socket.connected) {
       setError('Unable to connect to server, please refresh.')
@@ -19,38 +19,38 @@ const Chat = () => {
       console.log('Received message:', data)
       setMessages((prevMessages) => [...prevMessages, data])
     })
-    
+
     return () => {
       socket.off('receive_message')
     }
   }, [])
-  
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!message.trim()) {
       setError('Message cannot be empty')
       return
     }
-    
+
     const newMessage = {
       message: message,
       username: user.nickName,
       self: true // flag the message as the user's own message
     }
-    
+
     // add the new message to the state
     setMessages((prevMessages) => [...prevMessages, newMessage])
-    
+
     // emit the message to the server
     socket.emit('send_message', newMessage)
-    
+
     setMessage('')
   }
-  
+
   if (!user) {
     return <Loading className='w-52 h-52'/>
   }
-  
+
   return (
     <div className='h-screen py-10 mx-auto max-w-7xl w-full md:px-8 px-6'>
       <div className=' items-center space-y-2'>
