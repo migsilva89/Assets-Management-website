@@ -77,7 +77,7 @@ const NavBar = () => {
                       <Menu.Button className='flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
                         <span className='sr-only'>Open user menu</span>
                         {user ?
-                          <img className='h-8 w-8 rounded-full' src={user.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `https://nodejs.assetsmanagement.website/images/usersAvatar/${user.avatar}`} alt={`${user.nickName}'s avatar`}/> :
+                          <img className='h-8 w-8 rounded-full' src={user.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `https://apiv1.assetsmanagement.website/images/usersAvatar/${user.avatar}`} alt={`${user.nickName}'s avatar`}/> :
                           <img className='h-8 w-8 rounded-full' src='https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg'/>}
                       </Menu.Button>
                     </div>
@@ -159,7 +159,7 @@ const NavBar = () => {
                 <div className='flex items-center px-5'>
 
                   <div className='flex-shrink-0'>
-                    <img className='h-10 w-10 rounded-full' src={user.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `https://nodejs.assetsmanagement.website/images/usersAvatar/${user.avatar}`} alt={`${user.nickName}'s avatar`}/>
+                    <img className='h-10 w-10 rounded-full' src={user.avatar === 'no-photo.jpg' ? 'https://static.vecteezy.com/system/resources/thumbnails/002/002/427/small_2x/man-avatar-character-isolated-icon-free-vector.jpg' : `https://apiv1.assetsmanagement.website/images/usersAvatar/${user.avatar}`} alt={`${user.nickName}'s avatar`}/>
                   </div>
                   <div className='ml-3'>
                     <div className='text-base font-medium leading-none text-white'>{user.nickName}</div>

@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import { AuthContext } from '@/contexts/AuthContext'
 import Loading from '@/components/Layout/Loading'
 
-const socket = io.connect('wss://nodejs.assetsmanagement.website');
+const socket = io.connect('wss://apiv1.assetsmanagement.website');
 
 const Chat = () => {
   const [message, setMessage] = useState('')
